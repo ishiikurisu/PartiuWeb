@@ -19,27 +19,38 @@ const fakePlaces = [
         name: "Usina",
         where: [-27.58972, -48.52192],
         items: [
-            1,
-            2
+            {
+                id: 1,
+                price: 3.99
+            }, {
+                id: 2,
+                price: 32.00
+            }
         ]
-    },
-    {
+    }, {
         id: 2,
         name: "Papelaria",
         where: [-27.58634, -48.52473],
         items: [
-            3
+            {
+                id: 3,
+                price: 2
+            }
         ]
-    },
-    {
+    }, {
         id: 3,
         name: "Big",
         where: [-27.58988, -48.51531],
         items: [
-            1,
-            3
+            {
+                id: 1,
+                price: 5
+            }, {
+                id: 3,
+                price: 3
+            }
         ]
-    },
+    }
 ];
 
 function mockListPlaces(query, callback) {
@@ -48,7 +59,8 @@ function mockListPlaces(query, callback) {
     });
     var places = filter(fakePlaces, function(place) {
         var filteredItems = filter(items, function(item) {
-            return lincludes(place.items, item.id);
+            var itemsFromPlace = map(place.items, function(i) { return i.id; });
+            return lincludes(itemsFromPlace, item.id);
         });
         return filteredItems.length > 0
     });
