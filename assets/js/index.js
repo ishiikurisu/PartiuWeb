@@ -1,3 +1,10 @@
+function buildPopupForPlace(place) {
+    console.log(place);
+    return "<a href='/place?id="+ place.id +"'>" +
+        place.name +
+    "</a>";
+}
+
 function main() {
     var map = L.map('mapid').setView([-27.5989, -48.5313], 14);
     L.tileLayer('https://{s}.tiles.mapbox.com/v3/pinterest.map-ho21rkos/{z}/{x}/{y}.jpg', {
@@ -28,7 +35,7 @@ function main() {
             var place = places[i];
             var marker = L.marker(place.where, {icon: redMarker});
             marker.addTo(map);
-            marker.bindPopup();
+            marker.bindPopup(buildPopupForPlace(place));
         }
     });
 }
