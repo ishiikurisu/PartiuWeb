@@ -19,8 +19,9 @@ listPlaces(q, function(result) {
     var places = result.places;
     var redMarker = L.AwesomeMarkers.icon({
         icon: 'coffee',
-        markerColor: 'red',
-        iconColor: 'white'
+        markerColor: 'white',
+        iconColor: 'orange',
+        prefix: 'fa'
     });
     for (var i = 0; i < places.length ; i++) {
         var place = places[i];
