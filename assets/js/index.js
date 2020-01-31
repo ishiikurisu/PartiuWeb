@@ -13,6 +13,19 @@ function getWindowSize() {
 
 
 /**
+ * Get a paramter from an URL
+ * @param param the desired URL parameter
+ * @returns an empty string if there is no parameter or
+ *          the value that is associated with the key
+ */
+function getUrlParam(param) {
+    const queryString = window.location.search;
+    const urlParams = new URLSearchParams(queryString);
+    return urlParams.get(param);
+}
+
+
+/**
  * Used to setup the main function
  */
 function ready(fn) {
@@ -24,34 +37,33 @@ function ready(fn) {
 }
 
 
-/**
- * Asks the service about a user query. Should set the pins on the map based on the user current location.
- * This is the reaction to a user asking a question to the system.
- */
-function ask() {
-    var q = document.getElementsByName('q')[0];
-    listItems(q, function(result) {
-        if (result.error === "no results") {
-            alert("Nenhum produto encontrado!");
-            return;
-        }
-        if (result.error === "internal error") {
-            alert("Erro inesperado no serviço!");
-            return;
-        }
+var map = L.map('mapid').setView([-27.5989, -48.5313], 14);
+L.tileLayer('https://{s}.tiles.mapbox.com/v3/pinterest.map-ho21rkos/{z}/{x}/{y}.jpg', {
+	maxZoom: 19,
+	attribution: '&copy;'
+}).addTo(map);
+
+const q = getUrlParam('q');
+listPlaces(q, function(result) {
+    if (result.error === "no results") {
+        alert("Nenhum produto encontrado!");
+        return;
+    }
+    if (result.error === "internal error") {
+        alert("Erro inesperado no serviço!");
+        return;
+    }
+
+    // drawing filtered places
+    var places = result.places;
+    var redMarker = L.AwesomeMarkers.icon({
+        icon: 'coffee',
+        markerColor: 'red',
+        iconColor: 'white'
     });
-}
-
-
-/**
- * Starts the page by setting the map up
- */
-function main() {
-    var mymap = L.map('mapid').setView([-27.5989, -48.5313], 14);
-    L.tileLayer('https://{s}.tiles.mapbox.com/v3/pinterest.map-ho21rkos/{z}/{x}/{y}.jpg', {
-    	maxZoom: 19,
-    	attribution: '&copy;'
-    }).addTo(mymap);
-}
-
-ready(main);
+    for (var i = 0; i < places.length ; i++) {
+        var place = places[i];
+        var marker = L.marker(place.where, {icon: redMarker});
+        marker.addTo(map);
+    }
+});
