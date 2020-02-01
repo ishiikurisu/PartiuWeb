@@ -53,6 +53,26 @@ const fakePlaces = [
     }
 ];
 
+function mockGet(collection, id) {
+    var result = null;
+    for (var i = 0; i < collection.length; i++) {
+        var maybe = collection[i];
+        if (maybe.id === id) {
+            result = maybe;
+            break;
+        }
+    }
+    return result;
+}
+
+function mockGetItem(itemId) {
+    return mockGet(fakeItems, itemId);
+}
+
+function mockGetPlace(placeId) {
+    return mockGet(fakePlaces, placeId);
+}
+
 function mockListPlaces(query, callback) {
     var items = filter(fakeItems, function(item) {
         return item.name.toUpperCase().includes(query.toUpperCase());
@@ -69,5 +89,29 @@ function mockListPlaces(query, callback) {
     callback({
         error: error,
         places: places
+    });
+}
+
+function mockListItems(placeId, callback) {
+    var error = null;
+    var items = null;
+    var targetPlace = mockGetPlace(placeId);
+
+    if (targetPlace !== null) {
+        items = map(targetPlace.items, function(item) {
+            var itemInfo = mockGetItem(item.id);
+            return {
+                id: itemInfo.id,
+                name: itemInfo.name,
+                price: item.price
+            };
+        });
+    } else {
+        error = "no such place";
+    }
+
+    callback({
+        error: error,
+        items: items
     });
 }
