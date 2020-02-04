@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <meta name="description" content="#PARTIU main page">
+        <title>#PARTIU</title>
+        <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.3.1/css/all.css" integrity="sha384-mzrmE5qonljUremFsqc01SB46JvROS7bZs3IO2EmfFsd15uHvIt+Y8vEf7N7fWAU" crossorigin="anonymous">
+        <link href="/assets/css/vendor/normalize.css" rel="stylesheet">
+        <link href="/assets/css/vendor/mini.min.css" rel="stylesheet">
+        <link rel="stylesheet" href="./assets/css/master.css">
+    </head>
+    <body>
+        <div class="container">
+            <div class="row vertical">
+                <div class="col-md-offset-4 col-md-4 col-sm-12">
+                    <form>
+                        <fieldset>
+                            <legend>Olá!</legend>
+                            <div class="input-group vertical">
+                                <label for="username">Email</label>
+                                <input type="email" id="email" placeholder="callie@marie.co.jp"/>
+                            </div>
+                            <div class="input-group vertical">
+                                <label for="password">Senha</label>
+                                <input type="password" id="password"/>
+                            </div>
+                            <div class="row">
+                                <input type="button" name="submit" value="Entrar" onclick="login()">
+                            </div>
+                        </fieldset>
+                    </form>
+                </div>
+            </div>
+        </div>
+
+        <script src="/assets/js/util/common.js"></script>
+        <script src="/assets/js/util/functional.js"></script>
+        <script src="/assets/js/mock/data.js"></script>
+        <script src="/assets/js/api.js"></script>
+        <script src="/assets/js/account/login.js"></script>
+        <script type="text/javascript">
+            ready(main);
+        </script>
+    </body>
+</html>
