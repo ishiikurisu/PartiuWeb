@@ -17,3 +17,13 @@ function listItems(placeId, callback) {
     // TODO Call the real API instead of using mock data
     mockListItems(placeId, callback);
 }
+
+/**
+ * Atempts to login the user
+ * @param email user's email
+ * @param password user's password
+ * @param callback a function to be called with the results of the
+ */
+function authenticate(email, password, callback) {
+    mockLogin(email, password, callback);
+}

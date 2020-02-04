@@ -53,6 +53,16 @@ const fakePlaces = [
     }
 ];
 
+const fakeUsers = [
+    {
+        "email": "admin@crisjr.eng.br",
+        "password": "asdf",
+    }, {
+        "email": "user@example.net",
+        "password": "asdf"
+    }
+]
+
 function mockGet(collection, id) {
     var result = null;
     for (var i = 0; i < collection.length; i++) {
@@ -114,4 +124,14 @@ function mockListItems(placeId, callback) {
         error: error,
         items: items
     });
+}
+
+function mockLogin(email, password, callback) {
+    var authentication = filter(fakeUsers, function(userData) {
+        return userData.email === email && userData.password === password;
+    });
+    callback({
+        error: (authentication.length === 0)? "login failed" : null,
+        authentication: authentication
+    })
 }
